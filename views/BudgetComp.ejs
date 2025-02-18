@@ -1,0 +1,42 @@
+<%- layout("layouts/boilerplate") %>
+
+<div class="container m-5 ">
+
+    <h2 class="m-3 mb-4"><b style="color:#74C0FC; font-size:3rem;">Budget</b> vs <b style="color:#4c7a9e; font-size:3rem;">Actual Spending</b></h2>
+    <canvas id="budgetComparisonChart" class="m-2"></canvas>
+</div>
+
+<script>
+    const data = <%- JSON.stringify(comparisonData) %>;
+
+    const labels = data.map(item => item.category);
+    const budgeted = data.map(item => item.budgeted);
+    const spent = data.map(item => item.spent);
+
+    const ctx = document.getElementById('budgetComparisonChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Budgeted',
+                    data: budgeted,
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                },
+                {
+                    label: 'Spent',
+                    data: spent,
+                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                }
+            ]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>

@@ -1,0 +1,33 @@
+<%- layout("/layouts/boilerplate") %>
+
+<div class="container mt-5">
+    <h1 class="text-center">Edit Transaction</h1>
+
+    <div class="card mt-3">
+        <div class="card-body">
+            <form action="/edit/<%= transaction._id %>" method="POST">
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <input type="text" class="form-control" id="description" name="description" value="<%= transaction.description %>" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="amount" class="form-label">Amount</label>
+                    <input type="number" class="form-control" id="amount" name="amount" value="<%= transaction.amount %>" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="date" class="form-label">Date</label>
+                    <input type="date" class="form-control" id="date" name="date" value="<%= transaction.date %>">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Update Transaction</button>
+                <a href="/" class="btn btn-secondary ml-2">Cancel</a>
+            </form>
+
+            <form action="/delete/<%= transaction._id %>?_method=DELETE" method="POST" style="display:inline;">
+                <button class="btn btn-dark float-end delbtn">Delete</button>
+            </form>
+        </div>
+    </div>
+</div>

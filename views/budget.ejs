@@ -1,0 +1,25 @@
+<%- layout("/layouts/boilerplate") %>
+
+
+
+<div class="container m-5 row ">
+
+    <h2 class="mb-5 text-center" style="font-size:3rem;">Set Monthly <b style="font-size:4rem; color:#74C0FC;">Budgets</b></h2>
+
+<form action="/budget" method="POST">
+    <div class="form-group m-3">
+        <label for="category">Category</label>
+        <input type="text" id="category" name="category" class="form-control" required>
+    </div>
+    <div class="form-group m-3">
+        <label for="amount">Amount</label>
+        <input type="number" id="amount" name="amount" class="form-control" required>
+    </div>
+    <div class="form-group m-3">
+        <label for="month">Month</label>
+        <input type="month" id="month" name="month" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary m-3">Set Budget</button>
+</form>
+
+</div>

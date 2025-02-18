@@ -1,0 +1,64 @@
+<%- layout("layouts/boilerplate") %>
+
+<div class="container mt-5">
+    <h2 class="text-center mb-5" style="font-size: 3rem;">Spending <b style="font-size:4rem; color:#74C0FC">Insights</b></h2>
+
+    <div class="row mt-4">
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h4 class="card-title" style="color: #4c7a9e;">Top 3 Spending Categories</h4>
+                    <ul class="list-group list-group-flush">
+                        <% topSpending.forEach(item => { %>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <%= item._id %>
+                                <span class="badge bg-danger rounded-pill">$<%= item.totalSpent %></span>
+                            </li>
+
+                        <% }) %>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h4 class="card-title" style="color: #4c7a9e;">Categories Under Budget</h4>
+                    <ul class="list-group list-group-flush">
+                        <% underBudget.forEach(item => { %>
+                            <li class="list-group-item">
+
+                                <strong><%= item.category %></strong><br>
+                                <small>Budgeted: $<%= item.budgeted %></small><br>
+                                <small>Spent: $<%= item.spent %></small><br>
+                                <small class="text-success">Remaining: $<%= item.remaining %></small>
+
+                            </li>
+
+                        <% }) %>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm border-0">
+                <div class="card-body text-center">
+                    <h4 class="card-title" style="color: #4c7a9e;">Overall Budget Utilization</h4>
+                    <p class="display-4" style="color: #74C0FC;"><%= budgetUtilization %>%</p>
+                    <p class="text-muted">of total budget utilized</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+<%- layout("/layouts/boilerplate") %>
+
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Add New <b style="font-size:3rem; color:#74C0FC; ">Transaction</b></h2>
+        <div class="card shadow-sm p-4" >
+            <form action="/add" method="POST">
+
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <input type="text" class="form-control" id="description" name="description" placeholder="Enter transaction description" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="amount" class="form-label">Amount (₹)</label>
+                    <input type="number" class="form-control" id="amount" name="amount" placeholder="Enter amount" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="category" class="form-label">Category</label>
+                    <select class="form-select" id="category" name="category" required>
+                        <% categories.forEach(function(category){ %>
+                            <option value="<%= category %>"><%= category.charAt(0).toUpperCase() + category.slice(1) %> </option>
+                            <% }) %>
+                    </select>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary mt-3">Add Transaction</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</body>
