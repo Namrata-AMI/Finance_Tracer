@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -5,12 +7,13 @@ const ejsMate = require("ejs-mate");
 const bodyParser = require("body-parser");
 const methodOverride = require("method-override");
 const mongoose = require("mongoose");
+const MongoStore = require("connect-mongo");
 const session = require("express-session");
 const flash = require("connect-flash");
 const transactionRoutes = require("./routes/transaction");
 const budgetRoutes = require("./routes/budget.js");
 
-const dburl = "mongodb://localhost:27017/finace_tracer";
+const dburl = process.env.DB_URL || "mongodb://localhost:27017/finace_tracer";
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
@@ -21,17 +24,20 @@ app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "public")));
 
 const sessionOptions = {
-    secret: "ourSecret",
+    secret: process.env.SESSION_SECRET || "ourSecret",
     resave: false,
     saveUninitialized: false,
+    store: MongoStore.create({
+        mongoUrl: dburl,
+        collectionName: "sessions",
+        ttl: 7 * 24 * 60 * 60, 
+    }),
     cookie: {
-        expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
         maxAge: 7 * 24 * 60 * 60 * 1000,
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production" 
-    },
-    proxy: true  
-}
+        secure: process.env.NODE_ENV === "production",
+    }
+};
 
 app.use(session(sessionOptions));
 app.use(flash());                            
@@ -39,7 +45,7 @@ app.use(flash());
 app.use((req, res, next) => {
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
-    res.locals.newUser = req.user; // Storing the current user session
+    res.locals.newUser = req.user; 
     console.log(res.locals.newUser);
     next();
 });
@@ -51,18 +57,17 @@ app.use('/', transactionRoutes);
 app.use("/",budgetRoutes);
 
 
-main()
-.then(() => {
-    console.log("Connected to db");
-})
-.catch((err) => {
-    console.log(err);
-})
-
-
 async function main() {
-    await mongoose.connect(dburl);
+    try {
+        await mongoose.connect(dburl);
+        console.log("connected to db");
+    } catch (err) {
+        console.error("Db error:", err);
+        setTimeout(main, 5000); 
+    }
 }
+
+main();
 
 
 
