@@ -49,6 +49,12 @@ module.exports.getBudgetComp = async(req,res)=>{
             }
         ]);
 
+        // chekc budget exists
+        if(budgets.length === 0 || expenses.length === 0){
+            req.flash("error","No budgets or Transaction find. Set Budget!");
+            return res.redirect("/budget");
+        }
+
         const comparisonData = budgets.map(budget => {
             const expense = expenses.find(e => e._id === budget.category);
             return {
