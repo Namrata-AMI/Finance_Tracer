@@ -26,18 +26,22 @@ app.use(express.static(path.join(__dirname, "public")));
 const sessionOptions = {
     secret: process.env.SESSION_SECRET || "ourSecret",
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true, 
     store: MongoStore.create({
         mongoUrl: dburl,
         collectionName: "sessions",
-        ttl: 7 * 24 * 60 * 60, 
+        ttl: 7 * 24 * 60 * 60, // 7 days
     }),
     cookie: {
         maxAge: 7 * 24 * 60 * 60 * 1000,
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
+        secure: process.env.NODE_ENV === "production", 
     }
 };
+
+
+app.set("trust proxy", 1);
+
 
 app.use(session(sessionOptions));
 app.use(flash());                            
