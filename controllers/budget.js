@@ -71,6 +71,7 @@ module.exports.getBudgetComp = async(req,res)=>{
 module.exports.getSpendingInsights = async (req, res) => {
     try {
         const budgets = await Budget.find();
+    
         const expenses = await Transaction.aggregate([
             {
                 $group: {
@@ -79,6 +80,13 @@ module.exports.getSpendingInsights = async (req, res) => {
                 }
             }
         ]);
+
+        // chekc budget exists
+        if(budgets.length === 0 || expenses.length === 0){
+            req.flash("error","No budgets or Transaction find. Set Budget!");
+            return res.redirect("/budget");
+        }
+
         const topSpending = expenses
             .sort((a, b) => b.totalSpent - a.totalSpent)
             .slice(0, 3);
