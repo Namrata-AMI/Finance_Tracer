@@ -31,7 +31,10 @@
             <!-- Right -->
             <div class="right mt-5" style="width: 35%; margin-left: 20px;padding: 1rem; border-radius: 8px;">
                 <h3>Total Expenses</h3>
-                <h4>₹<%= allTransactions.reduce((sum, transaction) => sum + (transaction.type === 'Credit' ? transaction.amount : -transaction.amount), 0) %></h4>
+
+                <h4>₹<%= allTransactions.reduce((sum, transaction) => sum + transaction.amount, 0) %></h4>
+
+
                 <hr>
 
             
@@ -40,8 +43,10 @@
                     <canvas id="expensesChart"></canvas>
                 </div>
 
-                <div class="mt-5">
-                    <a href="/chart">category wise chart</a>
+                <div class="m-5 text-center">
+                    <a href="/chart" class="btn btn-success btn-lg shadow-sm" style="border-radius: 25px; padding: 10px 20px; text-decoration: none; transition: transform 0.3s;">
+                        View Category Wise Chart <i class="fa-solid fa-up-right-from-square" style="color: #63E6BE;"></i>
+                    </a>
                 </div>
             </div>
            

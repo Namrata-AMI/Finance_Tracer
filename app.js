@@ -46,14 +46,6 @@ app.use((req, res, next) => {
 // routers
 app.use('/', transactionRoutes);
 
-app.use("/add",transactionRoutes);
-
-app.use("/show",transactionRoutes);
-
-app.use("/edit/:id",transactionRoutes);
-
-app.use("/delete/:id",transactionRoutes);
-
 app.use("/",budgetRoutes);
 
 
