@@ -13,7 +13,7 @@ const flash = require("connect-flash");
 const transactionRoutes = require("./routes/transaction");
 const budgetRoutes = require("./routes/budget.js");
 
-const dburl = process.env.DB_URL || "mongodb://localhost:27017/finace_tracer";
+const dburl = process.env.DB_URL;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
