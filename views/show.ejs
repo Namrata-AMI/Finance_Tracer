@@ -8,54 +8,51 @@
     </div>
 
     <div class="card mt-3">
-        <div class="card-body d-flex">
+        <div class="card-body">
+            <div class="row">
 
-            <!-- Left  -->
-            <div class="left" style="width: 60%;">
-                <h3 class="walhead">My Wallet</h3>
-                <img src="/assets/img.jpg" class="walletimg m-1">
-                <ul class="list-group mt-3">
-                    <% allTransactions.forEach(function(transaction) { %>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <div>
-                                <strong style="color:darkcyan;"><%= transaction.description %></strong><br>
-                                Amount: ₹<%= transaction.amount %> | <br>
-                                Date: <%= transaction.date %>
-                            </div>
-                            <a href="/edit/<%= transaction._id %>" class="btn btn-warning btn-sm">Edit</a>
-                        </li>
-                    <% }) %>
-                </ul>
-            </div>
+                <!-- Left (Transactions List) -->
+                <div class="col-md-8 col-12">
+                    <h3 class="walhead">My Wallet</h3>
+                    <img src="/assets/img.jpg" class="walletimg m-1 img-fluid">
 
-            <!-- Right -->
-            <div class="right mt-5" style="width: 35%; margin-left: 20px;padding: 1rem; border-radius: 8px;">
-                <h3>Total Expenses</h3>
-
-                <h4>₹<%= allTransactions.reduce((sum, transaction) => sum + transaction.amount, 0) %></h4>
-
-
-                <hr>
-
-            
-                <div class="container mt-5">
-                    <h1 class="text-center m-4">Monthly Expenses</h1>
-                    <canvas id="expensesChart"></canvas>
+                    <ul class="list-group mt-3">
+                        <% allTransactions.forEach(function(transaction) { %>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong style="color:darkcyan;"><%= transaction.description %></strong><br>
+                                    Amount: ₹<%= transaction.amount %> | <br>
+                                    Date: <%= transaction.date %>
+                                </div>
+                                <a href="/edit/<%= transaction._id %>" class="btn btn-warning btn-sm">Edit</a>
+                            </li>
+                        <% }) %>
+                    </ul>
                 </div>
 
-                <div class="m-5 text-center">
-                    <a href="/chart" class="btn btn-success btn-lg shadow-sm" style="border-radius: 25px; padding: 10px 20px; text-decoration: none; transition: transform 0.3s;">
-                        View Category Wise Chart <i class="fa-solid fa-up-right-from-square" style="color: #63E6BE;"></i>
-                    </a>
-                </div>
-            </div>
-           
-        </div>
-       
-    </div>
-    
-</div>
+                <!-- Right (Chart & Expenses) -->
+                <div class="col-md-4 col-12 mt-md-0 mt-5 p-4 text-center" style="border-radius: 8px;">
+                    <h3>Total Expenses</h3>
+                    <h4>₹<%= allTransactions.reduce((sum, transaction) => sum + transaction.amount, 0) %></h4>
 
+                    <hr>
+
+                    <div class="mt-5">
+                        <h3 class="mb-4">Monthly Expenses</h3>
+                        <canvas id="expensesChart"></canvas>
+                    </div>
+
+                    <div class="mt-5">
+                        <a href="/chart" class="btn btn-success btn-lg shadow-sm" style="border-radius: 25px; padding: 10px 20px; text-decoration: none; transition: transform 0.3s;">
+                            View Category Wise Chart <i class="fa-solid fa-up-right-from-square" style="color: #63E6BE;"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div> <!-- End Row -->
+        </div> <!-- End Card Body -->
+    </div> <!-- End Card -->
+</div> <!-- End Container -->
 
 <script>
     const ctx = document.getElementById('expensesChart').getContext('2d');
@@ -90,5 +87,3 @@
         }
     });
 </script>
-
-

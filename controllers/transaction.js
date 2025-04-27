@@ -47,7 +47,7 @@ module.exports.addTransaction = async(req,res)=>{
 module.exports.showTransaction = async(req,res)=>{
     try{
         const allTransactions = await Transaction.find();
-        const transactions = await Transaction.aggregate([
+        const transactions = await Transaction.aggregate([   // .aggregate() always returns an array //
             {
                 $group:{
                     _id : { $month : "$date"},
@@ -127,6 +127,10 @@ module.exports.categoryExp = async(req,res)=>{
             }
         ]);
 
+        if(transactions.length === 0){
+            req.flash("error"," Chart not available , No spendings yet !");
+            return res.redirect("/show");
+        }
         const labels = transactions.map(t=>t._id);
         const data = transactions.map(t=>t.total);
 

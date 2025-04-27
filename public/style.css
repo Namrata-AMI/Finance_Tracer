@@ -1,8 +1,9 @@
 body{
     font-family: "Plus Jakarta Sans", sans-serif !important;
-    display:flex;
     flex-direction: column;
     min-height: 100vh;
+    margin: 0;
+    padding: 0;      
 }
 
 .container{
@@ -40,7 +41,8 @@ canvas {
 }
 
 .animated-image {
-  width: 300px;
+  width: 400px;
+  margin: 0 !important;
   transition: transform 0.1s ease-in-out;
   transition: bounce 0.3s infinite;
 }
@@ -63,4 +65,29 @@ canvas {
 
 .animated-image {
   animation: bounce 2s infinite;
+}
+
+
+@media(max-width:768px){
+  h1{
+    font-size:2rem;
+  }
+
+  .btn{
+    width:100%;
+    margin-bottom: 10px;
+  }
+
+  .left{
+    margin: 1rem !important;
+    width:100% !important;
+    align-items: center !important;
+  }
+
+  .right{
+    margin: 1rem !important;
+    width:100% !important;
+    align-content: center !important;
+    display: block;
+  }
 }
