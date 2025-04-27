@@ -28,7 +28,7 @@ const sessionOptions = {
     resave: false,
     saveUninitialized: true, 
     store: MongoStore.create({
-        mongoUrl: dburl,
+        mongoUrl: process.env.DB_URL,
         collectionName: "sessions",
         ttl: 7 * 24 * 60 * 60, // 7 days
     }),
