@@ -59,14 +59,18 @@ app.use('/', transactionRoutes);
 app.use("/",budgetRoutes);
 
 
+main()
+.then((res)=>{
+    console.log(res);
+    console.log("working db");
+})
+.catch((e)=>{
+    console.log(e);
+    console.log("db error");
+})
+
 async function main() {
-    try {
-        await mongoose.connect(dburl);
-        console.log("connected to db");
-    } catch (err) {
-        console.error("Db error:", err);
-        setTimeout(main, 5000); 
-    }
+    await mongoose.connect(dburl);
 }
 
 main();
