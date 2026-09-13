@@ -59,25 +59,15 @@ app.use('/', transactionRoutes);
 app.use("/",budgetRoutes);
 
 
-main()
-.then((res)=>{
-    console.log(res);
-    console.log("working db");
-})
-.catch((e)=>{
-    console.log(e);
-    console.log("db error");
-})
 
 async function main() {
     await mongoose.connect(dburl);
+    console.log("working db");
 }
 
-
-
-const PORT = process.env.PORT;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+main().catch((e) => {
+    console.log(e);
+    console.log("db error");
 });
 
 module.exports = app;
